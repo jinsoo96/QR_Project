@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>개인화 QR 코드 생성기(by. gotJS)</title>
+    <style>
+        /* 기본 스타일 설정 */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 배경 및 컨테이너 스타일 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f2f2f2;
+        }
+
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* 폼 요소 스타일 */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 라벨 스타일 */
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* 제목 스타일 */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>개인화 QR 코드 생성기(By.LangChain)</h1>
+        <form id="qrForm" method="post" action="">
+            {% csrf_token %}
+            <label for="user_input">현재 건강상태를 말씀해주세요:</label>
+            <input type="text" id="user_input" name="user_input">
+            <button type="submit">입력</button>
+        </form>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            var userInput = document.getElementById('user_input').value;
+
+            // AJAX 요청 설정
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/create_qr_code/', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    try {
+                        var response = JSON.parse(this.responseText);
+                        var qrCodeFileName = response.file_path;
+                        window.location.href = '/result/' + qrCodeFileName;  // 경로 수정
+                    } catch (e) {
+                        console.error("Error parsing response: ", this.responseText);
+                        console.error(e);
+                    }
+                }
+            };
+            xhr.send('user_input=' + encodeURIComponent(userInput));
+        }
+
+        document.getElementById('qrForm').addEventListener('submit', submitForm);
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

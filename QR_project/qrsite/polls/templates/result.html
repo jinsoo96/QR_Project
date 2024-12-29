@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>개인화 QR 코드</title>
+    <style>
+        /* 전체 페이지 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* 모든 내용을 가운데 정렬 */
+            background-color: #f4f4f4; /* 배경색 설정 */
+            padding: 50px 0; /* 상하 패딩 */
+        }
+         /* 내용 컨테이너 스타일 */
+        .content-container {
+            display: inline-block;
+            text-align: center; /* 내용을 가운데 정렬 */
+            margin: 0 auto;
+        }
+        .text-center {
+            display: flex;  /* Flexbox를 사용하여 가로 정렬을 가능하게 함 */
+            justify-content: center;  /* 요소를 수평적으로 가운데로 정렬 */
+            align-items: center;  /* 요소를 수직적으로 가운데로 정렬 */
+        }
+        
+
+        /* QR 코드 이미지 스타일 */
+        .qr-code {
+            width: 400px;
+            height: 400px;
+            border: 3px solid #000;
+            padding: 10px;
+            background-color: white;
+            box-shadow: 5px 5px 10px #888888;
+            
+        }
+
+        /* 링크 스타일 */
+        a {
+            display: inline-block; /* 링크를 블록 요소로 만들기 */
+            margin-top: 20px; /* 상단 여백 */
+            padding: 10px 15px; /* 패딩 */
+            background-color: #007bff; /* 배경색 */
+            color: white; /* 글자색 */
+            text-decoration: none; /* 밑줄 제거 */
+            border-radius: 5px; /* 둥근 모서리 */
+            transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+
+        }
+        img {
+            width: 80%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        a:hover {
+            background-color: #0056b3; /* 호버 시 배경색 변경 */
+        }
+
+        /* 제목 스타일 */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <meta charset="utf-8">
+    <div style="text-align: center;"> <!-- 가운데 정렬 -->
+        <h1>생성된 QR 코드</h1>
+        <!-- 동적으로 이미지 경로 설정 -->
+        <img class="qr-code" src="/static/{{ qr_code_path }}" alt="QR Code">
+        <a href="/">다시 생성하기</a>
+    </div>
+</body>
+</html>
+
+
+
+
+
